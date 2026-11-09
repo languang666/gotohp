@@ -10,22 +10,22 @@ const props = defineProps<{
 const statusConfig = computed(() => {
   switch (props.thread.Status) {
     case 'error':
-      return { color: 'text-destructive', bg: 'bg-destructive/10', label: 'Error' }
+      return { color: 'text-destructive', bg: 'bg-destructive/10', label: '错误' }
     case 'completed':
-      return { color: 'text-primary', bg: 'bg-primary/10', label: 'Done' }
+      return { color: 'text-primary', bg: 'bg-primary/10', label: '完成' }
     case 'skipped':
-      return { color: 'text-amber-700 dark:text-amber-300', bg: 'bg-amber-500/10', label: 'Skipped' }
+      return { color: 'text-amber-700 dark:text-amber-300', bg: 'bg-amber-500/10', label: '已跳过' }
     case 'uploading':
       if (props.thread.Attempt > 1) {
-        return { color: 'text-orange-500', bg: 'bg-orange-500/10', label: `Retry ${props.thread.Attempt - 1}` }
+        return { color: 'text-orange-500', bg: 'bg-orange-500/10', label: `重试 ${props.thread.Attempt - 1}` }
       }
-      return { color: 'text-blue-500', bg: 'bg-blue-500/10', label: 'Uploading' }
+      return { color: 'text-blue-500', bg: 'bg-blue-500/10', label: '上传中' }
     case 'hashing':
-      return { color: 'text-cyan-500', bg: 'bg-cyan-500/10', label: 'Hashing' }
+      return { color: 'text-cyan-500', bg: 'bg-cyan-500/10', label: '计算校验值' }
     case 'checking':
-      return { color: 'text-yellow-500', bg: 'bg-yellow-500/10', label: 'Checking' }
+      return { color: 'text-yellow-500', bg: 'bg-yellow-500/10', label: '检查重复' }
     case 'finalizing':
-      return { color: 'text-purple-500', bg: 'bg-purple-500/10', label: 'Finalizing' }
+      return { color: 'text-purple-500', bg: 'bg-purple-500/10', label: '正在完成' }
     default:
       return { color: 'text-muted-foreground', bg: 'bg-muted', label: props.thread.Status }
   }
