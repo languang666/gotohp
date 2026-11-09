@@ -1,5 +1,7 @@
 # gotohp
 
+本分支提供简体中文界面，基于上游 v0.11.0。安装、使用与构建说明见 [中文说明](README.zh-CN.md)。
+
 ![demo](readme_assets/app_demo.webp)
 
 Unofficial Google Photos Desktop GUI Client
