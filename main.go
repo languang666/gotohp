@@ -19,7 +19,7 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
-var title = "gotohp v" + getAppVersion()
+var title = "Google 相册上传 · 中文版 v" + getAppVersion()
 
 func main() {
 	// Run the CLI when the arguments name one of its commands; otherwise start the GUI.
