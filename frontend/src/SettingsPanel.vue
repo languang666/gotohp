@@ -160,7 +160,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Label
         for="upload-threads"
         class="size-full"
-      >Upload Threads</Label>
+      >并行上传数量</Label>
       <NumberFieldContent>
         <NumberFieldDecrement
           class="cursor-pointer"
@@ -174,7 +174,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Label
         for="use-quota"
         class="size-full cursor-pointer"
-      >Use Quota</Label>
+      >占用账号存储配额</Label>
       <Switch
         id="use-quota"
         v-model="settings.useQuota"
@@ -184,7 +184,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Label
         for="saver-mode"
         class="size-full cursor-pointer"
-      >Storage Saver Quality</Label>
+      >节省存储空间（压缩画质）</Label>
       <Switch
         id="saver-mode"
         v-model="settings.saver"
@@ -194,7 +194,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Label
         for="recursive"
         class="size-full cursor-pointer"
-      >Recursive Directory Upload</Label>
+      >包含所有子文件夹</Label>
       <Switch
         id="recursive"
         v-model="settings.recursive"
@@ -208,19 +208,19 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
         <Label
           for="force-upload"
           class="cursor-pointer"
-        >Force Upload</Label>
+        >强制上传</Label>
         <Tooltip>
           <TooltipTrigger as-child>
             <button
               type="button"
               class="inline-flex size-5 shrink-0 cursor-help items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-              aria-label="About Force Upload"
+              aria-label="强制上传说明"
             >
               <Info class="size-3.5" />
             </button>
           </TooltipTrigger>
           <TooltipContent class="max-w-72">
-            Applies to single files. Live Photo pairs always check both components for duplicates.
+            仅适用于单个文件。实况照片配对始终会检查图片和视频是否重复。
           </TooltipContent>
         </Tooltip>
       </div>
@@ -237,19 +237,19 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
         <Label
           for="pair-live-photos"
           class="cursor-pointer"
-        >Pair Apple Live Photos</Label>
+        >配对苹果实况照片</Label>
         <Tooltip>
           <TooltipTrigger as-child>
             <button
               type="button"
               class="inline-flex size-5 shrink-0 cursor-help items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-              aria-label="About Pair Apple Live Photos"
+              aria-label="实况照片配对说明"
             >
               <Info class="size-3.5" />
             </button>
           </TooltipTrigger>
           <TooltipContent class="max-w-72">
-            Identify Apple Live Photo image and MOV pairs via embedded metadata and upload them as one item.
+            根据内嵌元数据识别苹果实况照片的图片和 MOV 视频，将它们作为一项上传。
           </TooltipContent>
         </Tooltip>
       </div>
@@ -270,20 +270,19 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
         <Label
           for="skip-incomplete-live-photos"
           :class="settings.pairLivePhotos ? 'cursor-pointer' : 'cursor-not-allowed'"
-        >Skip Incomplete Live Photos</Label>
+        >跳过不完整的实况照片</Label>
         <Tooltip>
           <TooltipTrigger as-child>
             <button
               type="button"
               class="inline-flex size-5 shrink-0 cursor-help items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-              aria-label="About Skip Incomplete Live Photos"
+              aria-label="跳过不完整实况照片说明"
             >
               <Info class="size-3.5" />
             </button>
           </TooltipTrigger>
           <TooltipContent class="max-w-72">
-            Only upload Live Photos when both photo and video are available. If either is missing,
-            don't upload the remaining file separately.
+            仅在图片和视频都齐全时上传实况照片。缺少任一部分时，不单独上传剩余文件。
           </TooltipContent>
         </Tooltip>
       </div>
@@ -305,19 +304,19 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
         <Label
           for="update-existing-photos-to-live"
           :class="settings.pairLivePhotos ? 'cursor-pointer' : 'cursor-not-allowed'"
-        >Update Existing Photos to Live Photos</Label>
+        >将已有照片补全为实况照片</Label>
         <Tooltip>
           <TooltipTrigger as-child>
             <button
               type="button"
               class="inline-flex size-5 shrink-0 cursor-help items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-              aria-label="About Update Existing Photos to Live Photos"
+              aria-label="补全实况照片说明"
             >
               <Info class="size-3.5" />
             </button>
           </TooltipTrigger>
           <TooltipContent class="max-w-72">
-            If a static photo was already uploaded, re-upload it alongside its MOV companion to upgrade it to a Live Photo. Both local photo and video files are required.
+            若静态照片已上传，会连同配套的 MOV 视频重新上传，将其补全为实况照片。需要本地图片和视频都存在。
           </TooltipContent>
         </Tooltip>
       </div>
@@ -331,7 +330,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Label
         for="filter-unsupported"
         class="size-full cursor-pointer"
-      >Disable Unsupported Files Filter</Label>
+      >不再过滤不支持的文件</Label>
       <Switch
         id="filter-unsupported"
         v-model="settings.disableUnsupportedFilesFilter"
@@ -341,7 +340,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Label
         for="set-date-from-filename"
         class="size-full cursor-pointer"
-      >Set Upload Date from Filename</Label>
+      >从文件名读取日期</Label>
       <Switch
         id="set-date-from-filename"
         v-model="settings.setDateFromFilename"
@@ -351,7 +350,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Label
         for="delete-host"
         class="size-full cursor-pointer"
-      >Delete From Host After Upload</Label>
+      >上传后删除源文件</Label>
       <Switch
         id="delete-host"
         v-model="settings.deleteFromHost"
@@ -362,7 +361,7 @@ watch(() => settings.value.uploadThreads, async (newValue) => {
       <Input
         v-model="settings.proxy"
         type="text"
-        placeholder="Proxy URL (optional)"
+        placeholder="代理地址（可选）"
       />
     </div>
   </div>
