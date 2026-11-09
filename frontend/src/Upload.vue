@@ -90,7 +90,7 @@ function warningFiles(paths: string[]): string {
         {{ state.uploadedFiles }}<span class="text-muted-foreground font-normal">/</span><span class="text-muted-foreground">{{ state.totalFiles }}</span>
       </p>
       <p class="text-xs text-muted-foreground">
-        items processed
+        项已处理
       </p>
     </div>
 
@@ -131,7 +131,7 @@ function warningFiles(paths: string[]): string {
           class="text-primary"
         />
         <span class="text-sm font-medium">
-          {{ state.isCreatingAlbum ? 'Adding to album...' : 'Added to album' }}
+          {{ state.isCreatingAlbum ? '正在加入相册…' : '已加入相册' }}
         </span>
       </div>
       <p class="text-xs text-muted-foreground mb-1.5">
@@ -142,7 +142,7 @@ function warningFiles(paths: string[]): string {
         class="h-1.5"
       />
       <p class="text-xs text-muted-foreground mt-1">
-        {{ state.albumStatus.ItemsAdded }} / {{ state.albumStatus.TotalItems }} items
+        {{ state.albumStatus.ItemsAdded }} / {{ state.albumStatus.TotalItems }} 项
       </p>
     </div>
 
@@ -173,7 +173,7 @@ function warningFiles(paths: string[]): string {
     <!-- Thread list - scrollable -->
     <div class="flex-1 min-h-0 mb-3">
       <p class="text-xs text-muted-foreground mb-1.5">
-        Active threads ({{ threadsList.length }})
+        正在运行的上传任务 ({{ threadsList.length }})
       </p>
       <ScrollArea class="h-[calc(100%-20px)]">
         <div class="space-y-1.5 pr-3">
@@ -197,7 +197,7 @@ function warningFiles(paths: string[]): string {
         :size="14"
         class="mr-1"
       />
-      Cancel Upload
+      取消上传
     </Button>
   </div>
 </template>
