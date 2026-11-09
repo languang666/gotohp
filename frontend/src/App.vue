@@ -26,7 +26,7 @@ import { toast } from "vue-sonner"
 useColorMode().value = "dark"
 
 const { state: uploadState } = uploadManager
-const copyButtonText = ref('Copy as JSON');
+const copyButtonText = ref('复制 JSON 结果');
 
 // Drag state for dual drop zones
 const isDraggingFiles = ref(false)
@@ -53,7 +53,7 @@ watch(selectedOption, async (newValue) => {
       console.log('Successfully updated selected value:', newValue)
     } catch (error) {
       console.error('Failed to update selected value:', error)
-      toast.error('Failed to update selected account.')
+      toast.error('切换账号失败。')
     }
   } else {
     tokenBindingEmail.value = ''
@@ -83,7 +83,7 @@ async function refreshCredentials() {
     }
   } catch (error) {
     console.error('Failed to refresh Google accounts:', error)
-    toast.error('Could not refresh Google accounts', {
+    toast.error('无法刷新 Google 账号', {
       description: error instanceof Error ? error.message : String(error),
     })
   }
@@ -97,10 +97,10 @@ async function addTokenBindingAliasFromADB() {
     await ConfigManager.AddTokenBindingAliasFromADB(tokenBindingEmail.value)
     await refreshCredentials()
     tokenBindingEmail.value = ''
-    toast.success('Token binding key added.')
+    toast.success('已添加令牌绑定密钥。')
   } catch (error) {
-    console.error('Failed to add token binding key:', error)
-    toast.error('Failed to add token binding key', {
+    console.error('添加令牌绑定密钥失败:', error)
+    toast.error('添加令牌绑定密钥失败', {
       description: error instanceof Error ? error.message : String(error),
     })
   } finally {
@@ -118,11 +118,11 @@ async function removeCredentials(email: string) {
     if (removedSelectedAccount && options.value.length > 0 && !selectedOption.value) {
       selectedOption.value = options.value[0]
     }
-    toast.success('Credentials removed.')
+    toast.success('已移除登录凭据。')
     return true
   } catch (error) {
     console.error('Failed to remove credentials:', error)
-    toast.error('Failed to remove credentials.')
+    toast.error('移除登录凭据失败。')
     return false
   } finally {
     removingAccount.value = ''
@@ -140,8 +140,8 @@ onMounted(async () => {
 
 const handleCopyClick = () => {
   uploadManager.copyResultsAsJson();
-  copyButtonText.value = 'Copied!';
-  setTimeout(() => copyButtonText.value = 'Copy as JSON', 1000);
+  copyButtonText.value = '已复制！';
+  setTimeout(() => copyButtonText.value = '复制 JSON 结果', 1000);
 };
 
 
@@ -226,12 +226,12 @@ const albumErrorHandler = (e: Event) => {
   const { AlbumName, Error } = event.detail
   // Check if it's a 404 error (album key not found)
   if (Error.includes('404')) {
-    toast.error('Album not found', {
-      description: `The album key "${AlbumName}" does not exist or is invalid.`,
+    toast.error('找不到相册', {
+      description: `相册 ID「${AlbumName}」不存在或无效。`,
     })
   } else {
-    toast.error('Failed to create album', {
-      description: `Album "${AlbumName}": ${Error}`,
+    toast.error('创建相册失败', {
+      description: `相册「${AlbumName}」：${Error}`,
     })
   }
 }
@@ -240,7 +240,7 @@ const uploadErrorHandler = (e: Event) => {
   const event = e as CustomEvent<{ FileName: string; Message: string }>
   const { FileName, Message } = event.detail
   const errorMessage = Message.replace(/^Error:\s*/, '')
-  toast.error(FileName ? `Upload failed: ${FileName}` : 'Upload failed', {
+  toast.error(FileName ? `上传失败：${FileName}` : '上传失败', {
     description: errorMessage,
     duration: 10000,
     important: true,
@@ -270,8 +270,8 @@ onMounted(() => {
         await ConfigManager.SetAlbumAutoMode(dropZone === 'auto-album')
         await Events.Emit('startUpload', { files })
       } catch (error) {
-        console.error('Failed to start upload:', error)
-        toast.error('Failed to start upload', {
+        console.error('无法开始上传:', error)
+        toast.error('无法开始上传', {
           description: error instanceof Error ? error.message : String(error),
         })
       }
@@ -309,10 +309,10 @@ onUnmounted(() => {
         class="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/50 rounded-xl transition-all duration-200 drop-zone"
       >
         <h2 class="text-xl font-semibold select-none text-muted-foreground">
-          Upload Only
+          仅上传
         </h2>
         <p class="text-sm text-muted-foreground/70 mt-2 select-none text-center px-4">
-          Upload files without adding to any album
+          仅上传到照片库，不加入指定相册
         </p>
       </div>
       <div
@@ -321,10 +321,10 @@ onUnmounted(() => {
         class="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/50 rounded-xl transition-all duration-200 drop-zone"
       >
         <h2 class="text-xl font-semibold select-none text-muted-foreground">
-          Upload to Album
+          上传到指定相册
         </h2>
         <p class="text-sm text-muted-foreground/70 mt-2 select-none text-center px-4">
-          Upload and add to a specific album (you'll enter the name)
+          上传并加入指定相册（需要填写名称）
         </p>
       </div>
       <div
@@ -333,10 +333,10 @@ onUnmounted(() => {
         class="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/50 rounded-xl transition-all duration-200 drop-zone"
       >
         <h2 class="text-xl font-semibold select-none text-muted-foreground">
-          Auto Album
+          自动创建相册
         </h2>
         <p class="text-sm text-muted-foreground/70 mt-2 select-none text-center px-4">
-          Upload and create albums automatically based on folder names
+          按文件夹名称自动创建相册并上传
         </p>
       </div>
     </div>
@@ -354,17 +354,17 @@ onUnmounted(() => {
           </div>
           <div class="flex flex-col gap-1">
             <h1 class="text-xl font-semibold select-none">
-              Connect Google Photos
+              连接 Google 相册
             </h1>
             <p class="text-sm text-muted-foreground select-none">
-              Add an account before uploading photos and videos.
+              请先添加账号，再上传照片和视频。
             </p>
           </div>
           <Button
             class="cursor-pointer select-none"
             @click="openAccountSetup"
           >
-            Add Google account
+            添加 Google 账号
           </Button>
         </div>
       </template>
@@ -377,21 +377,21 @@ onUnmounted(() => {
             style="--wails-draggable: none"
           >
             <h1 class="text-xl font-semibold select-none">
-              Upload to Album
+              上传到指定相册
             </h1>
             <p class="text-muted-foreground select-none">
-              {{ pendingFileCount }} file(s) ready to upload
+              {{ pendingFileCount }} 个文件等待上传
             </p>
             
             <div class="flex flex-col gap-2 w-full max-w-xs">
               <Label
                 for="album-input"
                 class="text-muted-foreground text-sm"
-              >Album name or key</Label>
+              >相册名称或 ID</Label>
               <Input
                 id="album-input"
                 v-model="albumNameOrKey"
-                placeholder="Album name or AF1Qip... key"
+                placeholder="相册名称或 AF1Qip... ID"
                 autofocus
               />
             </div>
@@ -402,14 +402,14 @@ onUnmounted(() => {
                 class="cursor-pointer select-none"
                 @click="cancelAlbumUpload"
               >
-                Cancel
+                取消
               </Button>
               <Button
                 class="cursor-pointer select-none"
                 :disabled="!albumNameOrKey.trim()"
                 @click="confirmAlbumUpload"
               >
-                Upload
+                上传
               </Button>
             </div>
           </div>
@@ -418,7 +418,7 @@ onUnmounted(() => {
         <!-- Normal UI when not dragging -->
         <template v-else>
           <h1 class="text-xl font-semibold select-none">
-            Drop files to upload
+            将照片或文件夹拖到这里上传
           </h1>
           <GoogleAccountSelect
             v-model="selectedOption"
@@ -433,14 +433,14 @@ onUnmounted(() => {
             style="--wails-draggable: none"
           >
             <p class="text-sm text-muted-foreground">
-              This credential needs a token binding key from the rooted Android device it was captured from.
+              此凭据需要从获取它的已 Root 安卓设备读取令牌绑定密钥。
             </p>
             <Button
               class="cursor-pointer select-none"
               :disabled="isExtractingTokenBinding"
               @click="addTokenBindingAliasFromADB"
             >
-              {{ isExtractingTokenBinding ? 'Reading ADB...' : 'Read from ADB' }}
+              {{ isExtractingTokenBinding ? '正在通过 ADB 读取…' : '通过 ADB 读取' }}
             </Button>
           </div>
 
@@ -450,7 +450,7 @@ onUnmounted(() => {
                 variant="outline"
                 class="cursor-pointer select-none"
               >
-                Settings
+                设置
               </Button>
             </SheetTrigger>
             <SheetContent side="bottom">
@@ -465,12 +465,12 @@ onUnmounted(() => {
             class="flex flex-col items-center gap-2 border rounded-lg p-5 mt-5"
           >
             <h2 class="text-l font-semibold select-none ">
-              Upload Results
+              上传结果
             </h2>
-            <Label class="text-muted-foreground">Successful: {{ uploadState.results.success.length }}</Label>
-            <Label class="text-muted-foreground">Failed: {{ uploadState.results.fail.length }}</Label>
-            <Label class="text-muted-foreground">Skipped: {{ uploadState.results.skipped.length }}</Label>
-            <Label class="text-muted-foreground">Warnings: {{ uploadState.results.warnings.length }}</Label>
+            <Label class="text-muted-foreground">成功： {{ uploadState.results.success.length }}</Label>
+            <Label class="text-muted-foreground">失败： {{ uploadState.results.fail.length }}</Label>
+            <Label class="text-muted-foreground">跳过： {{ uploadState.results.skipped.length }}</Label>
+            <Label class="text-muted-foreground">提醒： {{ uploadState.results.warnings.length }}</Label>
             <Button
               variant="outline"
               class="cursor-pointer select-none min-w-[125px]"
